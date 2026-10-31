@@ -1,10 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, Mail, Phone, MapPin } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState<number>(2026);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="mt-auto border-t border-border bg-card/60 transition-colors">
