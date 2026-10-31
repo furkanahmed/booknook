@@ -22,7 +22,7 @@ export function BookCard({ book }: BookCardProps) {
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute top-3 right-3 z-10">
-            <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-md shadow-sm border border-border/50">
+            <span className="rounded-full bg-slate-900/90 dark:bg-zinc-950/90 text-white font-semibold text-xs px-3 py-1 shadow-md border border-white/20 backdrop-blur-sm tracking-wide">
               {book.category}
             </span>
           </div>
@@ -30,7 +30,7 @@ export function BookCard({ book }: BookCardProps) {
 
         {/* Book Details */}
         <div className="p-5 space-y-2">
-          <h3 className="font-serif text-lg font-bold text-card-foreground line-clamp-1 group-hover:text-primary transition-colors">
+          <h3 className="font-serif text-lg font-bold text-card-foreground line-clamp-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
             {book.title}
           </h3>
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground line-clamp-1">
