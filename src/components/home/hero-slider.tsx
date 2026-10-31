@@ -21,8 +21,7 @@ const slides = [
     subtitle: "Sanctuary of Timeless Stories",
     description:
       "Immerse yourself in thousands of curated masterpieces across classics, modern fiction, history, and scientific discoveries.",
-    bgImage:
-      "https://images.unsplash.com/photo-1507842229451-7f01be777a26?q=80&w=1600&auto=format&fit=crop",
+    bgImage: "/image/banner-1.webp",
     icon: BookOpen,
     accent: "Explore Rare Editions",
   },
@@ -32,8 +31,7 @@ const slides = [
     subtitle: "Seamless Reading Journey",
     description:
       "Select your favorite titles with real-time copy tracking, flexible borrow durations, and convenient one-click returns.",
-    bgImage:
-      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop",
+    bgImage: "/image/banner-2.webp",
     icon: Compass,
     accent: "Instant Digital Access",
   },
@@ -43,8 +41,7 @@ const slides = [
     subtitle: "Expand Your Perspectives",
     description:
       "Contribute your own books, explore recommendations, and join a passionate circle of curious minds and avid readers.",
-    bgImage:
-      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1600&auto=format&fit=crop",
+    bgImage: "/image/banner-3.webp",
     icon: Sparkles,
     accent: "Curated for Curious Minds",
   },
