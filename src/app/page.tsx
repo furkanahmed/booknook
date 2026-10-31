@@ -1,15 +1,14 @@
 import { HeroSlider } from "@/components/home/hero-slider";
+import { NewArrivalsSection } from "@/components/home/new-arrivals";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Banner / Slider Section (Swiper.js, 3 slides, Title, Text, Browse Books Button) */}
+      {/* 1. Banner / Slider Section (Swiper.js with 3 slides) */}
       <HeroSlider />
 
-      {/* 2. Placeholders for upcoming Home sections */}
-      <div className="container mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        {/* Next sections: Dynamic New Arrivals, How Borrowing Works, Top Categories */}
-      </div>
+      {/* 2. New Arrivals (Dynamic 6 Books, 3 cards per row, See All Books button) */}
+      <NewArrivalsSection />
     </div>
   );
 }
