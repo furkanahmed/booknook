@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { 
   Compass, 
   ArrowRight, 
@@ -22,7 +21,6 @@ interface CategoryData {
   slug: string;
   count: string;
   description: string;
-  image: string;
   badgeBg: string;
   tagColor: string;
   icon: React.ElementType;
@@ -37,7 +35,6 @@ const categories: CategoryData[] = [
     slug: "Fiction",
     count: "450+ Books",
     description: "Immerse in timeless novels, emotional journeys, and celebrated global classics.",
-    image: "/image/cat-fiction.webp",
     badgeBg: "bg-emerald-600 dark:bg-emerald-700",
     tagColor: "text-emerald-600 dark:text-emerald-400",
     icon: BookMarked,
@@ -50,7 +47,6 @@ const categories: CategoryData[] = [
     slug: "Non-Fiction",
     count: "380+ Books",
     description: "Habit formation, psychology, life lessons, and transformative biographies.",
-    image: "/image/cat-non-fiction.webp",
     badgeBg: "bg-amber-600 dark:bg-amber-700",
     tagColor: "text-amber-600 dark:text-amber-400",
     icon: Compass,
@@ -63,7 +59,6 @@ const categories: CategoryData[] = [
     slug: "Finance",
     count: "210+ Books",
     description: "Master money psychology, modern investing, market wisdom, and independence.",
-    image: "/image/cat-finance.webp",
     badgeBg: "bg-orange-600 dark:bg-orange-700",
     tagColor: "text-orange-600 dark:text-orange-400",
     icon: TrendingUp,
@@ -76,7 +71,6 @@ const categories: CategoryData[] = [
     slug: "Science",
     count: "190+ Books",
     description: "Explore astrophysics, evolutionary milestones, and futuristic discoveries.",
-    image: "/image/cat-science.webp",
     badgeBg: "bg-blue-600 dark:bg-blue-700",
     tagColor: "text-blue-600 dark:text-blue-400",
     icon: Atom,
@@ -89,7 +83,6 @@ const categories: CategoryData[] = [
     slug: "History",
     count: "260+ Books",
     description: "Ancient revolutions, empire chronicles, and pivotal heritage milestones.",
-    image: "/image/cat-history.webp",
     badgeBg: "bg-rose-600 dark:bg-rose-700",
     tagColor: "text-rose-600 dark:text-rose-400",
     icon: Landmark,
@@ -102,7 +95,6 @@ const categories: CategoryData[] = [
     slug: "Fantasy",
     count: "320+ Books",
     description: "Mythical lands, magical lore, epic kingdoms, and legendary adventures.",
-    image: "/image/cat-fantasy.webp",
     badgeBg: "bg-purple-600 dark:bg-purple-700",
     tagColor: "text-purple-600 dark:text-purple-400",
     icon: Sparkles,
@@ -138,7 +130,7 @@ export function CategoriesSection() {
           </Link>
         </div>
 
-        {/* Categories Grid (Exact Reference Image Style) */}
+        {/* Categories Grid (Clean Minimalist Cards Matching Reference) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat) => {
             return (
@@ -147,59 +139,51 @@ export function CategoriesSection() {
                 href={`/books?category=${encodeURIComponent(cat.slug)}`}
                 className="group relative flex overflow-hidden rounded-[20px] bg-card border border-border/80 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-1"
               >
-                {/* 1. Left Vertical Colored Ribbon (Flush to left, top & bottom) */}
+                {/* 1. Left Vertical Colored Ribbon */}
                 <div
-                  className={`relative z-20 flex w-12 sm:w-14 shrink-0 flex-col items-center justify-center rounded-l-[19px] ${cat.badgeBg} text-white transition-colors`}
+                  className={`relative z-20 flex w-10 sm:w-11 shrink-0 flex-col items-center justify-center rounded-l-[19px] ${cat.badgeBg} text-white transition-colors`}
                 >
-                  <span className="-rotate-90 whitespace-nowrap font-sans text-xs font-bold uppercase tracking-widest text-white">
+                  <span className="-rotate-90 whitespace-nowrap font-sans text-[11px] font-bold uppercase tracking-widest text-white">
                     {cat.step}
                   </span>
                 </div>
 
-                {/* 2. Main Right Content Area */}
-                <div className="relative z-10 flex flex-1 flex-col justify-between p-6 sm:p-7 overflow-hidden">
-                  
-                  {/* Subtle Cinematic Background Image */}
-                  <div className="absolute inset-0 z-0 pointer-events-none">
-                    <Image
-                      src={cat.image}
-                      alt={cat.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover object-center opacity-10 dark:opacity-15 group-hover:opacity-20 group-hover:scale-105 transition-all duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-card via-card/95 to-card/85" />
-                  </div>
+                {/* Clean Gap */}
+                <div className="w-2 shrink-0 bg-muted/20 dark:bg-zinc-900/30" />
 
-                  {/* Top Header Row: Category Tag (Orange/Coral style) + Books Count */}
-                  <div className="relative z-10 space-y-2">
+                {/* 2. Main Right Area (Compact & Slim) */}
+                <div className="relative z-10 flex flex-1 flex-col justify-between overflow-hidden">
+                  
+                  {/* Top Content Box */}
+                  <div className="p-4 sm:p-5 space-y-1.5">
+                    {/* Top Header Row */}
                     <div className="flex items-center justify-between">
-                      <span className="text-base sm:text-lg font-bold text-[#FF5A36] dark:text-[#FF7043] tracking-normal">
+                      <span className="text-xs sm:text-sm font-bold text-[#FF5A36] dark:text-[#FF7043] tracking-normal">
                         {cat.tag}
                       </span>
-                      <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-3 py-1 rounded-full border border-border/50">
+                      <span className="text-[11px] font-medium text-muted-foreground bg-muted/80 dark:bg-muted/50 px-2.5 py-0.5 rounded-full border border-border/50">
                         {cat.count}
                       </span>
                     </div>
 
-                    {/* Main Bold Title (e.g. Job হান্টিং style) */}
-                    <h3 className="text-xl sm:text-2xl font-bold text-card-foreground group-hover:text-primary transition-colors tracking-tight">
+                    {/* Main Title */}
+                    <h3 className="text-base sm:text-lg font-bold text-card-foreground group-hover:text-primary transition-colors tracking-tight">
                       {cat.name}
                     </h3>
 
-                    {/* Description Paragraph */}
-                    <p className="pt-2 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                    {/* Description */}
+                    <p className="pt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
 
-                  {/* Bottom Action Line: Explore Titles with Arrow */}
-                  <div className="relative z-10 pt-5 mt-4 border-t border-border/40 flex items-center justify-between text-xs sm:text-sm font-semibold text-primary group-hover:text-[#FF5A36] dark:group-hover:text-[#FF7043] transition-colors">
+                  {/* Bottom Action Line */}
+                  <div className="px-4 sm:px-5 py-2.5 border-t border-border/40 bg-card flex items-center justify-between text-xs font-semibold text-primary group-hover:text-[#FF5A36] dark:group-hover:text-[#FF7043] transition-colors">
                     <span className="flex items-center gap-1.5">
-                      <BookOpen className="h-4 w-4" />
-                      <span>Explore Titles</span>
+                      <BookOpen className="h-3.5 w-3.5" />
+                      <span>Explore Books</span>
                     </span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform duration-200" />
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1.5 transition-transform duration-200" />
                   </div>
 
                 </div>
