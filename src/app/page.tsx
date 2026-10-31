@@ -1,5 +1,6 @@
 import { HeroSlider } from "@/components/home/hero-slider";
 import { NewArrivalsSection } from "@/components/home/new-arrivals";
+import { CategoriesSection } from "@/components/home/categories-section";
 
 export default function HomePage() {
   return (
@@ -9,6 +10,9 @@ export default function HomePage() {
 
       {/* 2. New Arrivals (Dynamic 6 Books, 3 cards per row, See All Books button) */}
       <NewArrivalsSection />
+
+      {/* 3. Extra Relevant Section 1: Browse by Categories / Genres */}
+      <CategoriesSection />
     </div>
   );
 }
