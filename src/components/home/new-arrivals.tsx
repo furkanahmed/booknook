@@ -6,14 +6,14 @@ import { Book } from "@/types/book";
 import { BookCard } from "@/components/books/book-card";
 import { ArrowRight, Sparkles, Library } from "lucide-react";
 
-// Curated initial books for layout presentation before Express backend integration
+// Real published book covers from Open Library Archive
 const initialLatestBooks: Book[] = [
   {
     _id: "book-1",
     title: "To Kill a Mockingbird",
     author: "Harper Lee",
     category: "Fiction",
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/8225266-L.jpg",
     shortDescription: "A compelling drama exploring justice, compassion, and courage in the American South.",
     totalCopies: 5,
   },
@@ -22,7 +22,7 @@ const initialLatestBooks: Book[] = [
     title: "A Brief History of Time",
     author: "Stephen Hawking",
     category: "Science",
-    image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/8315808-L.jpg",
     shortDescription: "An exploration into space, time, black holes, and the fundamental mysteries of our cosmos.",
     totalCopies: 3,
   },
@@ -31,7 +31,7 @@ const initialLatestBooks: Book[] = [
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
     category: "Fiction",
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/10557454-L.jpg",
     shortDescription: "A poignant portrait of ambition, obsession, and the jazz age in 1920s America.",
     totalCopies: 4,
   },
@@ -40,7 +40,7 @@ const initialLatestBooks: Book[] = [
     title: "Sapiens: A Brief History",
     author: "Yuval Noah Harari",
     category: "History",
-    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/8813358-L.jpg",
     shortDescription: "How an insignificant ape became the master of planet Earth.",
     totalCopies: 6,
   },
@@ -49,7 +49,7 @@ const initialLatestBooks: Book[] = [
     title: "The Little Prince",
     author: "Antoine de Saint-Exupéry",
     category: "Kids",
-    image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/8235114-L.jpg",
     shortDescription: "A timeless poetic tale of love, friendship, and seeing with the heart.",
     totalCopies: 2,
   },
@@ -58,7 +58,7 @@ const initialLatestBooks: Book[] = [
     title: "Cosmos",
     author: "Carl Sagan",
     category: "Science",
-    image: "https://images.unsplash.com/photo-1532012164546-f432f2e3edd4?q=80&w=800&auto=format&fit=crop",
+    image: "https://covers.openlibrary.org/b/id/7269862-L.jpg",
     shortDescription: "A personal voyage exploring cosmic evolution, science, and the origins of human civilization.",
     totalCopies: 4,
   },
@@ -66,7 +66,6 @@ const initialLatestBooks: Book[] = [
 
 export function NewArrivalsSection() {
   const [books, setBooks] = useState<Book[]>(initialLatestBooks);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // When Express backend is running with MongoDB, it automatically fetches:
@@ -120,4 +119,3 @@ export function NewArrivalsSection() {
     </section>
   );
 }
-
