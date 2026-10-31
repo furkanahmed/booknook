@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -34,14 +36,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${sansFont.variable} ${serifFont.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
           <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
