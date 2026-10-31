@@ -1,6 +1,7 @@
 import { HeroSlider } from "@/components/home/hero-slider";
 import { NewArrivalsSection } from "@/components/home/new-arrivals";
 import { CategoriesSection } from "@/components/home/categories-section";
+import { HowBorrowingWorksSection } from "@/components/home/how-borrowing-works";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,9 @@ export default function HomePage() {
 
       {/* 3. Extra Relevant Section 1: Browse by Categories / Genres */}
       <CategoriesSection />
+
+      {/* 4. Extra Relevant Section 2: How Borrowing Works (Step-by-step) */}
+      <HowBorrowingWorksSection />
     </div>
   );
 }
