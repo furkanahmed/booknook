@@ -76,7 +76,7 @@ export default async function BookDetailsPage({
             <div className="mt-5 w-full max-w-[340px] flex items-center justify-between p-3.5 rounded-xl bg-neutral-950/80 border border-neutral-800 text-sm">
               <span className="text-neutral-400 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-emerald-400" />
-                Available Quantity:
+                Available Copies:
               </span>
               <span
                 className={`font-semibold px-2.5 py-0.5 rounded-full text-xs ${

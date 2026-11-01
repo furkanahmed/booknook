@@ -69,10 +69,10 @@ export function BorrowSection({ book }: BorrowSectionProps) {
       return;
     }
 
-    // Reset confirmation state & set default 14-days return date
+    // Reset confirmation state & set default 7-days return date as specified in assignment plan
     setIsConfirmed(false);
     const defaultDate = new Date();
-    defaultDate.setDate(today.getDate() + 14);
+    defaultDate.setDate(today.getDate() + 7);
     setSelectedDate(defaultDate);
     setCalendarMonth(new Date());
     setModalOpen(true);
