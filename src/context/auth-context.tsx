@@ -19,7 +19,7 @@ export interface BorrowRecord {
 interface AuthContextType {
   user: AuthUser | null;
   loading: boolean;
-  login: (user: AuthUser) => void;
+  login: (user: AuthUser, token?: string) => void;
   logout: () => void;
   borrowedBooks: string[]; // List of book IDs currently borrowed by active user
   userBorrows: BorrowRecord[]; // List of borrow records for active user
@@ -31,6 +31,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AUTH_USER_KEY = "booknook_active_user";
+const AUTH_TOKEN_KEY = "booknook_auth_token";
 const BORROW_RECORDS_KEY = "booknook_borrow_records";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -56,10 +57,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = (newUser: AuthUser) => {
+  const login = (newUser: AuthUser, token?: string) => {
     setUser(newUser);
     try {
       localStorage.setItem(AUTH_USER_KEY, JSON.stringify(newUser));
+      if (token) {
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -69,6 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     try {
       localStorage.removeItem(AUTH_USER_KEY);
+      localStorage.removeItem(AUTH_TOKEN_KEY);
     } catch (e) {
       console.error(e);
     }
