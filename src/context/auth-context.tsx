@@ -22,7 +22,9 @@ interface AuthContextType {
   login: (user: AuthUser) => void;
   logout: () => void;
   borrowedBooks: string[]; // List of book IDs currently borrowed by active user
+  userBorrows: BorrowRecord[]; // List of borrow records for active user
   recordBorrow: (bookId: string, returnDate: string) => boolean;
+  returnBook: (bookId: string) => boolean;
   hasBorrowed: (bookId: string) => boolean;
 }
 
@@ -98,6 +100,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return true;
   };
 
+  const returnBook = (bookId: string): boolean => {
+    if (!user) return false;
+
+    const updated = allBorrows.filter(
+      (b) => !(b.bookId === bookId && b.userEmail.toLowerCase() === user.email.toLowerCase())
+    );
+
+    setAllBorrows(updated);
+    try {
+      localStorage.setItem(BORROW_RECORDS_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    return true;
+  };
+
   const hasBorrowed = (bookId: string): boolean => {
     if (!user) return false;
     return allBorrows.some(
@@ -105,11 +123,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const borrowedBooks = user
-    ? allBorrows
-        .filter((b) => b.userEmail.toLowerCase() === user.email.toLowerCase())
-        .map((b) => b.bookId)
+  const userBorrows = user
+    ? allBorrows.filter((b) => b.userEmail.toLowerCase() === user.email.toLowerCase())
     : [];
+
+  const borrowedBooks = userBorrows.map((b) => b.bookId);
 
   return (
     <AuthContext.Provider
@@ -119,7 +137,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         borrowedBooks,
+        userBorrows,
         recordBorrow,
+        returnBook,
         hasBorrowed,
       }}
     >
