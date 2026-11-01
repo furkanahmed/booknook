@@ -8,7 +8,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Fiction",
     image: "/image/The Alchemist.webp",
     shortDescription: "A magical story about following your dreams, omens, and listening to your inner heart.",
+    longDescription:
+      "Paulo Coelho's masterpiece tells the mystical story of Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure. His quest will lead him to riches far different—and far more satisfying—than he ever imagined. Santiago's journey teaches us about the essential wisdom of listening to our hearts, of recognizing opportunity and learning to read the omens strewn along life's path, and, above all, following our dreams.",
     totalCopies: 5,
+    rating: 4.8,
+    publishedYear: 1988,
+    pages: 208,
+    isbn: "978-0062315007",
+    language: "English",
   },
   {
     _id: "book-2",
@@ -17,7 +24,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Non-Fiction",
     image: "/image/Atomic Habits.webp",
     shortDescription: "An easy and proven way to build good habits, break bad ones, and achieve remarkable results.",
+    longDescription:
+      "No matter your goals, Atomic Habits offers a proven framework for improving every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results. You'll learn how to make time for new habits, overcome a lack of motivation, and design your environment to make success easier.",
     totalCopies: 6,
+    rating: 4.9,
+    publishedYear: 2018,
+    pages: 320,
+    isbn: "978-0735211292",
+    language: "English",
   },
   {
     _id: "book-3",
@@ -26,7 +40,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Fiction",
     image: "/image/The Great Gatsby.webp",
     shortDescription: "A timeless portrait of ambition, obsession, and the jazz age in 1920s America.",
+    longDescription:
+      "The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan. It explores themes of decadence, idealism, resistance to change, and social upheaval.",
     totalCopies: 4,
+    rating: 4.6,
+    publishedYear: 1925,
+    pages: 180,
+    isbn: "978-0743273565",
+    language: "English",
   },
   {
     _id: "book-4",
@@ -35,7 +56,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Finance",
     image: "/image/Rich Dad Poor Dad.webp",
     shortDescription: "What the rich teach their kids about money that the poor and middle class do not.",
+    longDescription:
+      "Rich Dad Poor Dad is Robert's story of growing up with two dads — his real father and the father of his best friend, his rich dad — and the ways in which both men shaped his thoughts about money and investing. The book explodes the myth that you need to earn a high income to be rich and explains the difference between working for money and having your money work for you.",
     totalCopies: 5,
+    rating: 4.7,
+    publishedYear: 1997,
+    pages: 336,
+    isbn: "978-1612680194",
+    language: "English",
   },
   {
     _id: "book-5",
@@ -44,7 +72,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Fantasy",
     image: "/image/The Hobbit.webp",
     shortDescription: "An unforgettable adventure through Middle-earth filled with dragons, dwarfs, and treasure.",
+    longDescription:
+      "Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any further than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of thirteen dwarves arrive on his doorstep one day to whisk him away on an epic journey to raid the treasure hoard guarded by Smaug the Dragon.",
     totalCopies: 4,
+    rating: 4.8,
+    publishedYear: 1937,
+    pages: 310,
+    isbn: "978-0547928227",
+    language: "English",
   },
   {
     _id: "book-6",
@@ -53,7 +88,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Finance",
     image: "/image/The Psychology of Money.webp",
     shortDescription: "Timeless lessons on wealth, greed, and happiness doing well with personal finances.",
+    longDescription:
+      "Doing well with money isn't necessarily about what you know. It's about how you behave. And behavior is hard to teach, even to really smart people. In The Psychology of Money, award-winning author Morgan Housel shares 19 short stories exploring the strange ways people think about money and teaches you how to make better sense of one of life's most important topics.",
     totalCopies: 3,
+    rating: 4.8,
+    publishedYear: 2020,
+    pages: 256,
+    isbn: "978-0857197689",
+    language: "English",
   },
   {
     _id: "book-7",
@@ -62,7 +104,14 @@ export const initialBooksCatalog: Book[] = [
     category: "History",
     image: "/image/Sapiens A Brief History.webp",
     shortDescription: "How an insignificant ape became the ruler of planet Earth across evolutionary revolutions.",
+    longDescription:
+      "From a renowned historian comes a groundbreaking narrative of humanity's creation and evolution—a #1 international bestseller—that explores the ways in which biology and history have defined us and enhanced our understanding of what it means to be human. One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there is only one: Homo sapiens. How did our species succeed in the battle for dominance?",
     totalCopies: 7,
+    rating: 4.7,
+    publishedYear: 2011,
+    pages: 498,
+    isbn: "978-0062316097",
+    language: "English",
   },
   {
     _id: "book-8",
@@ -71,7 +120,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Science",
     image: "/image/A Brief History of Time.webp",
     shortDescription: "An exploration into black holes, quantum gravity, and the fundamental mysteries of our cosmos.",
+    longDescription:
+      "A landmark volume in science writing by one of the great minds of our time, Stephen Hawking's book explores such profound questions as: How did the universe begin—and what made its start possible? Does time always flow forward? Is the universe unending—or are there boundaries? Are there other dimensions in space? What will happen when it all ends? Told in language we all can understand, A Brief History of Time plunges into the exhilarating theoretical frontiers of black holes and relativity.",
     totalCopies: 5,
+    rating: 4.6,
+    publishedYear: 1988,
+    pages: 256,
+    isbn: "978-0553380163",
+    language: "English",
   },
   {
     _id: "book-9",
@@ -80,7 +136,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Fiction",
     image: "/image/To Kill a Mockingbird.webp",
     shortDescription: "A compelling drama exploring justice, compassion, morality, and racial inequality in the South.",
+    longDescription:
+      "Compassionate, dramatic, and deeply moving, To Kill A Mockingbird takes readers to the roots of human behavior—to innocence and experience, kindness and cruelty, love and hatred, humor and pathos. Now with over 40 million copies sold in print and translated into more than forty languages, this regional story by a young Alabama woman claims universal appeal. Harper Lee always considered her book to be a simple love story.",
     totalCopies: 4,
+    rating: 4.8,
+    publishedYear: 1960,
+    pages: 336,
+    isbn: "978-0060935467",
+    language: "English",
   },
   {
     _id: "book-10",
@@ -89,7 +152,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Kids",
     image: "/image/The Little Prince.webp",
     shortDescription: "A poetic and philosophical tale of love, loneliness, friendship, and seeing with the heart.",
+    longDescription:
+      "The Little Prince is a poetic tale with watercolor illustrations by the author, in which a pilot stranded in the desert meets a young prince fallen to Earth from a tiny asteroid. The story is philosophical and includes social criticism, remarking on the strangeness of the adult world. It addresses themes of imagination, loneliness, love, friendship, and loss in a deeply touching, universal manner.",
     totalCopies: 2,
+    rating: 4.9,
+    publishedYear: 1943,
+    pages: 96,
+    isbn: "978-0156012195",
+    language: "English",
   },
   {
     _id: "book-11",
@@ -98,7 +168,14 @@ export const initialBooksCatalog: Book[] = [
     category: "Science",
     image: "/image/Cosmos.webp",
     shortDescription: "A personal voyage exploring fifteen billion years of cosmic evolution and science.",
+    longDescription:
+      "Cosmos retraces the fourteen billion years of cosmic evolution that have transformed matter into consciousness, exploring such topics as the origin of life, the human brain, Egyptian hieroglyphics, spacecraft missions, the death of the Sun, the evolution of galaxies, and the forces and individuals who helped to shape modern science. Sagan's poetic prose brings scientific history brilliantly alive.",
     totalCopies: 6,
+    rating: 4.9,
+    publishedYear: 1980,
+    pages: 384,
+    isbn: "978-0345539434",
+    language: "English",
   },
   {
     _id: "book-12",
@@ -107,7 +184,13 @@ export const initialBooksCatalog: Book[] = [
     category: "Non-Fiction",
     image: "/image/Thinking, Fast and Slow.webp",
     shortDescription: "A groundbreaking tour of the mind, examining the two systems that drive the way we think.",
+    longDescription:
+      "In the international bestseller, Thinking, Fast and Slow, Daniel Kahneman, the renowned psychologist and winner of the Nobel Prize in Economics, takes us on a groundbreaking tour of the mind and explains the two systems that drive the way we think. System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical. Kahneman reveals where we can and cannot trust our intuitions.",
     totalCopies: 5,
+    rating: 4.7,
+    publishedYear: 2011,
+    pages: 499,
+    isbn: "978-0374533557",
+    language: "English",
   },
 ];
-

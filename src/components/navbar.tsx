@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/context/auth-context";
 
 // Public links visible to everyone
 const publicNavLinks = [
@@ -32,9 +33,7 @@ const privateNavLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
-  // NOTE: Auth state will be seamlessly wired with BetterAuth session in the Auth phase.
-  const user = null; 
+  const { user, logout } = useAuth(); 
 
   const allVisibleLinks = user ? [...publicNavLinks, ...privateNavLinks] : publicNavLinks;
 
@@ -126,7 +125,11 @@ export function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="p-0">
-                  <button type="button" className="w-full px-2 py-1.5 text-destructive cursor-pointer flex items-center gap-2 text-left">
+                  <button
+                    type="button"
+                    onClick={() => logout()}
+                    className="w-full px-2 py-1.5 text-destructive cursor-pointer flex items-center gap-2 text-left"
+                  >
                     <LogOut className="h-4 w-4" />
                     <span>Logout</span>
                   </button>

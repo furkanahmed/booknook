@@ -15,7 +15,13 @@ export interface Book {
   category: BookCategory | string;
   image: string;
   shortDescription: string;
+  longDescription?: string;
   totalCopies: number;
+  rating?: number;
+  publishedYear?: number;
+  pages?: number;
+  isbn?: string;
+  language?: string;
   userName?: string;
   userEmail?: string;
   createdAt?: string;
