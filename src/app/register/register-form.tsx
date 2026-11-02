@@ -17,6 +17,7 @@ import {
   Sparkles 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { signIn } from "@/lib/auth-client";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -87,8 +88,17 @@ export function RegisterForm() {
     }
   };
 
-  const handleGoogleSignUp = () => {
-    toast.info("Google Sign-in will be enabled with your Google OAuth client ID.");
+  const handleGoogleSignUp = async () => {
+    try {
+      setIsLoading(true);
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to initiate Google Sign Up");
+      setIsLoading(false);
+    }
   };
 
   return (

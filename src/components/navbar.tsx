@@ -124,15 +124,12 @@ export function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="p-0">
-                  <button
-                    type="button"
-                    onClick={() => logout()}
-                    className="w-full px-2 py-1.5 text-destructive cursor-pointer flex items-center gap-2 text-left"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    <span>Logout</span>
-                  </button>
+                <DropdownMenuItem
+                  onClick={() => logout()}
+                  className="px-2 py-1.5 text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer flex items-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Logout</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

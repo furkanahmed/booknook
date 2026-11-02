@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useSession, signOut as betterSignOut } from "@/lib/auth-client";
 
 export interface AuthUser {
   id: string;
@@ -39,6 +40,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [allBorrows, setAllBorrows] = useState<BorrowRecord[]>([]);
 
+  // Better-Auth session sync
+  const { data: session, isPending: sessionPending } = useSession();
+
+  useEffect(() => {
+    if (session?.user) {
+      const activeUser: AuthUser = {
+        id: session.user.id,
+        name: session.user.name,
+        email: session.user.email,
+        avatar: session.user.image || undefined,
+      };
+      setUser(activeUser);
+      localStorage.setItem(AUTH_USER_KEY, JSON.stringify(activeUser));
+    }
+  }, [session]);
+
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem(AUTH_USER_KEY);
@@ -74,6 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.removeItem(AUTH_USER_KEY);
       localStorage.removeItem(AUTH_TOKEN_KEY);
+      betterSignOut();
     } catch (e) {
       console.error(e);
     }

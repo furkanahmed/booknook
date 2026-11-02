@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
+import { signIn } from "@/lib/auth-client";
 
 export function LoginForm() {
   const router = useRouter();
@@ -104,14 +105,17 @@ export function LoginForm() {
   };
 
   // Assignment Mandatory Rule: Social Login (Google only)
-  const handleGoogleSignIn = () => {
-    login({
-      id: "usr-google-" + Date.now(),
-      name: "Demo Reader",
-      email: "reader@booknook.com",
-    });
-    toast.success("Signed in with Google successfully!");
-    router.push(redirectUrl);
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      await signIn.social({
+        provider: "google",
+        callbackURL: redirectUrl,
+      });
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to initiate Google Sign In");
+      setIsLoading(false);
+    }
   };
 
   return (
