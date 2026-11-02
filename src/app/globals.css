@@ -111,3 +111,35 @@
     @apply bg-background text-foreground transition-colors duration-200 antialiased selection:bg-amber-200 selection:text-amber-950;
   }
 }
+
+/* Swiper slider styling - hide navigation arrows on mobile and style them elegantly on larger screens */
+@media (max-width: 640px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #10B981 !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 9999px !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(16, 185, 129, 0.8) !important;
+  color: #000 !important;
+  transform: scale(1.05);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 18px !important;
+  font-weight: bold !important;
+}

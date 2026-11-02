@@ -53,10 +53,11 @@ export function HeroSlider() {
       <Swiper
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         effect="fade"
-        speed={800}
+        speed={1000}
         autoplay={{
-          delay: 5500,
+          delay: 4500,
           disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         }}
         pagination={{
           clickable: true,
