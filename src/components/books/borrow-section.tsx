@@ -222,13 +222,13 @@ export function BorrowSection({ book }: BorrowSectionProps) {
 
       {/* Interactive Borrow Modal */}
       {modalOpen && user && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-xl rounded-3xl bg-neutral-900 border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-3 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md rounded-2xl bg-neutral-900 border border-neutral-800 p-3 sm:p-4 shadow-2xl flex flex-col justify-between">
             
             {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-neutral-800">
-              <div className="flex items-center gap-3">
-                <div className="relative w-12 h-16 rounded-lg overflow-hidden shrink-0 border border-neutral-700">
+            <div className="flex items-center justify-between pb-2 border-b border-neutral-800">
+              <div className="flex items-center gap-2.5">
+                <div className="relative w-8 h-11 rounded overflow-hidden shrink-0 border border-neutral-700">
                   <Image
                     src={book.image}
                     alt={book.title}
@@ -237,39 +237,39 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                   />
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-emerald-400 flex items-center gap-1">
-                    <BookOpen className="w-3 h-3" />
+                  <span className="text-[10px] uppercase tracking-wider font-semibold text-emerald-400 flex items-center gap-1">
+                    <BookOpen className="w-2.5 h-2.5" />
                     Borrow Request
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-100">
+                  <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-100 line-clamp-1 leading-tight">
                     {book.title}
                   </h3>
-                  <p className="text-xs text-neutral-400">By {book.author}</p>
+                  <p className="text-[11px] text-neutral-400 leading-tight">By {book.author}</p>
                 </div>
               </div>
               <button
                 onClick={() => setModalOpen(false)}
-                className="p-1.5 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
+                className="p-1 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Success Confirmation View */}
             {isConfirmed ? (
-              <div className="text-center py-6 space-y-4 animate-in zoom-in-95 duration-200">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
-                  <ShieldCheck className="w-8 h-8" />
+              <div className="text-center py-3 space-y-2.5 animate-in zoom-in-95 duration-200">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+                  <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-neutral-100">Booking Confirmed!</h4>
-                  <p className="text-sm text-neutral-400 mt-1">
+                  <h4 className="text-base font-bold text-neutral-100">Booking Confirmed!</h4>
+                  <p className="text-xs text-neutral-400 mt-0.5">
                     "{book.title}" has been successfully added to your borrowed collection.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 text-left text-xs space-y-2 max-w-sm mx-auto">
+                <div className="p-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-left text-xs space-y-1 max-w-sm mx-auto">
                   <div className="flex justify-between text-neutral-400">
                     <span>Borrower:</span>
                     <span className="text-neutral-200 font-medium">{user.name}</span>
@@ -290,10 +290,10 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                   </div>
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-1">
                   <Button
                     onClick={() => setModalOpen(false)}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-neutral-950 font-semibold px-8 rounded-xl"
+                    className="bg-emerald-500 hover:bg-emerald-600 text-neutral-950 font-semibold px-5 py-1.5 rounded-xl text-xs"
                   >
                     Done & Close
                   </Button>
@@ -301,45 +301,45 @@ export function BorrowSection({ book }: BorrowSectionProps) {
               </div>
             ) : (
               /* Modal Form */
-              <form onSubmit={handleModalSubmit} className="space-y-5">
-                {/* Auto-filled User Info */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-neutral-400 flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-emerald-400" />
-                      Reader Name (Auto-filled)
+              <form onSubmit={handleModalSubmit} className="space-y-2.5 pt-2">
+                {/* Auto-filled User Info in compact inline row */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-0.5">
+                    <label className="text-[10px] font-medium text-neutral-400 flex items-center gap-1">
+                      <User className="w-2.5 h-2.5 text-emerald-400" />
+                      Reader Name
                     </label>
                     <input
                       type="text"
                       value={user.name}
                       disabled
-                      className="w-full rounded-xl bg-neutral-950 border border-neutral-800 px-3.5 py-2 text-xs sm:text-sm text-neutral-300 cursor-not-allowed opacity-80"
+                      className="w-full rounded-md bg-neutral-950 border border-neutral-800 px-2.5 py-1 text-xs text-neutral-300 cursor-not-allowed opacity-80"
                     />
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-neutral-400 flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-emerald-400" />
-                      Reader Email (Auto-filled)
+                  <div className="space-y-0.5">
+                    <label className="text-[10px] font-medium text-neutral-400 flex items-center gap-1">
+                      <Mail className="w-2.5 h-2.5 text-emerald-400" />
+                      Reader Email
                     </label>
                     <input
                       type="email"
                       value={user.email}
                       disabled
-                      className="w-full rounded-xl bg-neutral-950 border border-neutral-800 px-3.5 py-2 text-xs sm:text-sm text-neutral-300 cursor-not-allowed opacity-80"
+                      className="w-full rounded-md bg-neutral-950 border border-neutral-800 px-2.5 py-1 text-xs text-neutral-300 cursor-not-allowed opacity-80"
                     />
                   </div>
                 </div>
 
                 {/* Return Date Picker Calendar */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-neutral-200 flex items-center gap-1.5">
-                      <CalendarIcon className="w-3.5 h-3.5 text-emerald-400" />
-                      Select Return Date (Calendar Picker)
+                    <label className="text-[11px] font-medium text-neutral-200 flex items-center gap-1">
+                      <CalendarIcon className="w-3 h-3 text-emerald-400" />
+                      Select Return Date
                     </label>
                     {selectedDate && (
-                      <span className="text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                      <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                         {selectedDate.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -349,33 +349,33 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                     )}
                   </div>
 
-                  {/* Calendar Widget */}
-                  <div className="rounded-2xl bg-neutral-950 border border-neutral-800 p-4">
+                  {/* Calendar Widget Ultra-Compact */}
+                  <div className="rounded-xl bg-neutral-950 border border-neutral-800 p-2">
                     {/* Month Navigator */}
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-semibold text-neutral-200">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-semibold text-neutral-200">
                         {monthNames[month]} {year}
                       </span>
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
                           onClick={prevMonth}
-                          className="p-1 rounded-lg text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
+                          className="p-0.5 rounded text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
                         >
-                          <ChevronLeft className="w-4 h-4" />
+                          <ChevronLeft className="w-3.5 h-3.5" />
                         </button>
                         <button
                           type="button"
                           onClick={nextMonth}
-                          className="p-1 rounded-lg text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
+                          className="p-0.5 rounded text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
                         >
-                          <ChevronRight className="w-4 h-4" />
+                          <ChevronRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
 
                     {/* Day Names Header */}
-                    <div className="grid grid-cols-7 gap-1 text-center text-[11px] text-neutral-500 font-medium mb-1.5">
+                    <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-neutral-500 font-medium mb-1">
                       <span>Su</span>
                       <span>Mo</span>
                       <span>Tu</span>
@@ -388,7 +388,7 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                     {/* Days Grid */}
                     <div className="grid grid-cols-7 gap-1 text-center text-xs">
                       {Array.from({ length: firstDayOfWeek }).map((_, i) => (
-                        <div key={`empty-${i}`} className="h-8" />
+                        <div key={`empty-${i}`} className="h-5 sm:h-6" />
                       ))}
 
                       {Array.from({ length: daysInMonth }).map((_, i) => {
@@ -405,9 +405,9 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                               const newDate = new Date(year, month, dayNum);
                               setSelectedDate(newDate);
                             }}
-                            className={`h-8 rounded-lg flex items-center justify-center font-medium transition-all ${
+                            className={`h-5 sm:h-6 rounded flex items-center justify-center text-xs font-medium transition-all ${
                               selected
-                                ? "bg-emerald-500 text-neutral-950 font-bold shadow-md shadow-emerald-500/20 scale-105"
+                                ? "bg-emerald-500 text-neutral-950 font-bold shadow-sm shadow-emerald-500/20"
                                 : disabled
                                 ? "text-neutral-600 cursor-not-allowed opacity-40"
                                 : "text-neutral-300 hover:bg-neutral-800 hover:text-emerald-400"
@@ -421,31 +421,28 @@ export function BorrowSection({ book }: BorrowSectionProps) {
                   </div>
                 </div>
 
-                {/* Borrow Terms Notice */}
-                <div className="p-3 rounded-xl bg-neutral-950/70 border border-neutral-800/80 text-[11px] text-neutral-400 flex items-start gap-2">
-                  <Clock className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>
-                    Books can be borrowed for up to 60 days. You will be able to return this book anytime from your "My Borrows" page.
-                  </span>
-                </div>
-
                 {/* Modal Actions */}
-                <div className="flex items-center justify-end gap-3 pt-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setModalOpen(false)}
-                    className="text-neutral-400 hover:text-neutral-200"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting || !selectedDate}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-neutral-950 font-semibold px-6 rounded-xl"
-                  >
-                    {isSubmitting ? "Confirming..." : "Confirm & Borrow"}
-                  </Button>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[10px] text-neutral-500 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-emerald-400/80" /> Max 60 days
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setModalOpen(false)}
+                      className="text-neutral-400 hover:text-neutral-200 text-xs h-7 px-2.5"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting || !selectedDate}
+                      className="bg-emerald-500 hover:bg-emerald-600 text-neutral-950 font-semibold px-4 h-7 rounded-lg text-xs"
+                    >
+                      {isSubmitting ? "Confirming..." : "Confirm & Borrow"}
+                    </Button>
+                  </div>
                 </div>
               </form>
             )}

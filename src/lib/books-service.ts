@@ -41,3 +41,4 @@ export function getBookById(id: string): Book | undefined {
   const all = getAllBooks();
   return all.find((b) => b._id === id);
 }
+
