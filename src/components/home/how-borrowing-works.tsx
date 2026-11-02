@@ -20,7 +20,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#FF5A36] dark:text-[#FF7043]",
     title: "Discover & Explore",
     description: "Browse curated titles and check live copy availability in our digital catalog.",
-    image: "/image/step-2-request.webp",
+    image: "/image/1. Discover & Explore.jpg",
     actionText: "Explore Catalog",
   },
   {
@@ -28,7 +28,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#0284C7] dark:text-[#38BDF8]",
     title: "Request & Borrow",
     description: "Select your return date with flexible duration and confirm your digital request.",
-    image: "/image/step-1-discover.webp",
+    image: "/image/2. Request & Borrow.jpg",
     actionText: "Borrow Duration",
   },
   {
@@ -36,7 +36,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#D97706] dark:text-[#F59E0B]",
     title: "Read & Enjoy",
     description: "Immerse in your favorite stories with real-time tracking in your dashboard.",
-    image: "/image/step-3-read.webp",
+    image: "/image/3.  Read & Enjoy.jpg",
     actionText: "Track Reading",
   },
   {
@@ -44,7 +44,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#10B981] dark:text-[#34D399]",
     title: "One-Click Return",
     description: "Return finished books easily to automatically update the library stock.",
-    image: "/image/step-4-return.webp",
+    image: "/image/4. Return Book.jpg",
     actionText: "Return Book",
   },
 ];
