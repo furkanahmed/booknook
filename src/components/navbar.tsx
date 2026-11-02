@@ -103,7 +103,7 @@ export function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger className="relative h-9 w-9 rounded-full ring-2 ring-primary/20 p-0 overflow-hidden outline-none cursor-pointer">
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={(user as any).image} alt={(user as any).name || "User"} />
+                  <AvatarImage src={(user as any).avatar || (user as any).image} alt={(user as any).name || "User"} />
                   <AvatarFallback className="bg-primary/10 text-primary font-medium text-xs">
                     {(user as any).name ? (user as any).name.charAt(0).toUpperCase() : "U"}
                   </AvatarFallback>
@@ -200,7 +200,7 @@ export function Navbar() {
                 <>
                   <div className="flex items-center gap-3 px-3 py-2">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={(user as any).image} alt={(user as any).name || "User"} />
+                      <AvatarImage src={(user as any).avatar || (user as any).image} alt={(user as any).name || "User"} />
                       <AvatarFallback>{(user as any).name?.charAt(0) || "U"}</AvatarFallback>
                     </Avatar>
                     <div className="text-sm">
@@ -218,8 +218,11 @@ export function Navbar() {
                   </Link>
                   <button
                     type="button"
-                    className="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md text-left"
-                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md text-left cursor-pointer"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logout();
+                    }}
                   >
                     <LogOut className="h-4 w-4" />
                     <span>Logout</span>
