@@ -20,7 +20,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#FF5A36] dark:text-[#FF7043]",
     title: "Discover & Explore",
     description: "Browse curated titles and check live copy availability in our digital catalog.",
-    image: "/image/step-1-discover.webp",
+    image: "/image/step-2-request.webp",
     actionText: "Explore Catalog",
   },
   {
@@ -28,7 +28,7 @@ const borrowingSteps: StepItem[] = [
     stepColor: "text-[#0284C7] dark:text-[#38BDF8]",
     title: "Request & Borrow",
     description: "Select your return date with flexible duration and confirm your digital request.",
-    image: "/image/step-2-request.webp",
+    image: "/image/step-1-discover.webp",
     actionText: "Borrow Duration",
   },
   {
