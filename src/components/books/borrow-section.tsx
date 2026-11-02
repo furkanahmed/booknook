@@ -29,7 +29,7 @@ interface BorrowSectionProps {
 
 export function BorrowSection({ book }: BorrowSectionProps) {
   const router = useRouter();
-  const { user, hasBorrowed, recordBorrow } = useAuth();
+  const { user, hasBorrowed, recordBorrow, getAvailableCopies } = useAuth();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -37,7 +37,8 @@ export function BorrowSection({ book }: BorrowSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const isOutOfStock = book.totalCopies <= 0;
+  const currentCopies = getAvailableCopies(book._id, book.totalCopies);
+  const isOutOfStock = currentCopies <= 0;
   const alreadyBorrowed = hasBorrowed(book._id);
 
   // Normalize today (midnight)

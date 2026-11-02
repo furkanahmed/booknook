@@ -27,6 +27,7 @@ interface AuthContextType {
   recordBorrow: (bookId: string, returnDate: string) => boolean;
   returnBook: (bookId: string) => boolean;
   hasBorrowed: (bookId: string) => boolean;
+  getAvailableCopies: (bookId: string, defaultCopies: number) => number;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -146,6 +147,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const getAvailableCopies = (bookId: string, defaultCopies: number): number => {
+    // Count how many copies are currently borrowed across all users
+    const borrowedCount = allBorrows.filter((b) => b.bookId === bookId).length;
+    return Math.max(0, defaultCopies - borrowedCount);
+  };
+
   const userBorrows = user
     ? allBorrows.filter((b) => b.userEmail.toLowerCase() === user.email.toLowerCase())
     : [];
@@ -164,6 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         recordBorrow,
         returnBook,
         hasBorrowed,
+        getAvailableCopies,
       }}
     >
       {children}
