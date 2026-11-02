@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { initialBooksCatalog } from "@/data/initial-books";
 import { BookDetailsClient } from "./book-details-client";
 
@@ -13,15 +12,9 @@ export async function generateMetadata({
   const { id } = await params;
   const book = initialBooksCatalog.find((b) => b._id === id);
 
-  if (!book) {
-    return {
-      title: "Book Not Found - BookNook",
-    };
-  }
-
   return {
-    title: `${book.title} by ${book.author} | BookNook`,
-    description: book.shortDescription,
+    title: book ? `${book.title} by ${book.author} | BookNook` : "Book Details | BookNook",
+    description: book?.shortDescription || "View details and borrow books on BookNook digital library.",
   };
 }
 
@@ -29,11 +22,7 @@ export default async function BookDetailsPage({
   params,
 }: BookDetailsPageProps) {
   const { id } = await params;
-  const book = initialBooksCatalog.find((b) => b._id === id);
+  const initialBook = initialBooksCatalog.find((b) => b._id === id) || null;
 
-  if (!book) {
-    notFound();
-  }
-
-  return <BookDetailsClient book={book} />;
+  return <BookDetailsClient initialBook={initialBook} />;
 }

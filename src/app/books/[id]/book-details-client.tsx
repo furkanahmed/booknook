@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound, useParams } from "next/navigation";
 import { Book } from "@/types/book";
 import { useAuth } from "@/context/auth-context";
 import { BorrowSection } from "@/components/books/borrow-section";
+import { getBookById } from "@/lib/books-service";
 import {
   ArrowLeft,
   BookOpen,
@@ -18,12 +20,31 @@ import {
   User,
 } from "lucide-react";
 
-interface BookDetailsClientProps {
-  book: Book;
-}
+export function BookDetailsClient({ initialBook }: { initialBook?: Book | null }) {
+  const params = useParams();
+  const id = (params?.id as string) || "";
+  const [book, setBook] = useState<Book | null>(initialBook || null);
 
-export function BookDetailsClient({ book }: BookDetailsClientProps) {
+  useEffect(() => {
+    if (!book && id) {
+      const found = getBookById(id);
+      if (found) {
+        setBook(found);
+      }
+    }
+  }, [id, book]);
+
   const { getAvailableCopies } = useAuth();
+
+  if (!book) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 bg-neutral-950 text-neutral-100">
+        <div className="w-10 h-10 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+        <p className="text-sm text-neutral-400">Loading book details...</p>
+      </div>
+    );
+  }
+
   const currentCopies = getAvailableCopies(book._id, book.totalCopies);
   const isAvailable = currentCopies > 0;
 
