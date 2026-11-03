@@ -8,15 +8,14 @@ import { ArrowRight, Sparkles, Library } from "lucide-react";
 import { getLatestBooks, fetchLiveBooks } from "@/lib/books-service";
 
 export function NewArrivalsSection() {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>(() => getLatestBooks(6));
 
   useEffect(() => {
-    // Load latest books dynamically from MongoDB API (works globally & incognito)
+    // Instant fallback is displayed immediately!
+    // Silently revalidate latest 6 books from MongoDB in background
     fetchLiveBooks(6).then((live) => {
       if (live && live.length > 0) {
         setBooks(live);
-      } else {
-        setBooks(getLatestBooks(6));
       }
     });
   }, []);

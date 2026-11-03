@@ -24,7 +24,7 @@ export function BooksCatalog() {
   const searchParams = useSearchParams();
   const initialCategoryParam = searchParams.get("category");
 
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>(() => getAllBooks());
   const [selectedCategory, setSelectedCategory] = useState<string>(
     initialCategoryParam && allCategories.includes(initialCategoryParam)
       ? initialCategoryParam
@@ -33,12 +33,11 @@ export function BooksCatalog() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Load all books from MongoDB API (works globally across all browsers & incognito)
+    // Instant fallback is already displayed above!
+    // Now silently revalidate & merge fresh MongoDB books in the background
     fetchLiveBooks().then((live) => {
       if (live && live.length > 0) {
         setBooks(live);
-      } else {
-        setBooks(getAllBooks());
       }
     });
   }, []);
