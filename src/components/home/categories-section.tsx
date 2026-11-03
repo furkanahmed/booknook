@@ -6,13 +6,13 @@ import {
   Compass, 
   ArrowRight, 
   BookOpen, 
-  TrendingUp, 
+  Coins, 
   Landmark, 
-  Atom, 
-  Brain,
-  Wand2,
-  Baby,
-  Layers
+  FlaskConical, 
+  BrainCircuit, 
+  Feather, 
+  Sparkles, 
+  Layers 
 } from "lucide-react";
 
 interface CategoryData {
@@ -22,8 +22,7 @@ interface CategoryData {
   tagline: string;
   count: string;
   icon: React.ElementType;
-  gradient: string;
-  glowColor: string;
+  iconGlow: string;
   iconColor: string;
 }
 
@@ -32,98 +31,89 @@ const categories: CategoryData[] = [
     id: "fiction",
     name: "Fiction",
     slug: "Fiction",
-    tagline: "Timeless stories for every reader.",
+    tagline: "Stories & imagination",
     count: "450+ Books",
     icon: BookOpen,
-    gradient: "from-emerald-500/15 via-emerald-600/5 to-transparent",
-    glowColor: "group-hover:shadow-emerald-500/20 group-hover:border-emerald-500/50",
-    iconColor: "text-emerald-400 group-hover:text-emerald-300",
+    iconGlow: "bg-emerald-500/15 text-emerald-400 group-hover:bg-emerald-500/25",
+    iconColor: "text-emerald-400",
   },
   {
     id: "non-fiction",
-    name: "Non-Fiction",
+    name: "Personal Growth",
     slug: "Non-Fiction",
-    tagline: "Improve yourself every single day.",
+    tagline: "Learn & improve",
     count: "380+ Books",
-    icon: Brain,
-    gradient: "from-teal-500/15 via-teal-600/5 to-transparent",
-    glowColor: "group-hover:shadow-teal-500/20 group-hover:border-teal-500/50",
-    iconColor: "text-teal-400 group-hover:text-teal-300",
+    icon: BrainCircuit,
+    iconGlow: "bg-amber-500/15 text-amber-400 group-hover:bg-amber-500/25",
+    iconColor: "text-amber-400",
   },
   {
     id: "finance",
     name: "Finance",
     slug: "Finance",
-    tagline: "Plan, save, and grow your wealth.",
+    tagline: "Manage your money",
     count: "210+ Books",
-    icon: TrendingUp,
-    gradient: "from-amber-500/15 via-amber-600/5 to-transparent",
-    glowColor: "group-hover:shadow-amber-500/20 group-hover:border-amber-500/50",
-    iconColor: "text-amber-400 group-hover:text-amber-300",
+    icon: Coins,
+    iconGlow: "bg-amber-500/15 text-amber-300 group-hover:bg-amber-500/25",
+    iconColor: "text-amber-300",
   },
   {
     id: "science",
     name: "Science",
     slug: "Science",
-    tagline: "Explore modern wonders of science.",
+    tagline: "Discover & learn",
     count: "190+ Books",
-    icon: Atom,
-    gradient: "from-cyan-500/15 via-cyan-600/5 to-transparent",
-    glowColor: "group-hover:shadow-cyan-500/20 group-hover:border-cyan-500/50",
-    iconColor: "text-cyan-400 group-hover:text-cyan-300",
+    icon: FlaskConical,
+    iconGlow: "bg-teal-500/15 text-teal-400 group-hover:bg-teal-500/25",
+    iconColor: "text-teal-400",
   },
   {
     id: "history",
     name: "History",
     slug: "History",
-    tagline: "Journey through ancient & modern time.",
+    tagline: "Explore the past",
     count: "260+ Books",
     icon: Landmark,
-    gradient: "from-emerald-600/15 via-emerald-700/5 to-transparent",
-    glowColor: "group-hover:shadow-emerald-600/20 group-hover:border-emerald-600/50",
-    iconColor: "text-emerald-400 group-hover:text-emerald-300",
-  },
-  {
-    id: "kids",
-    name: "Kids",
-    slug: "Kids",
-    tagline: "Inspiring tales for young minds.",
-    count: "180+ Books",
-    icon: Baby,
-    gradient: "from-rose-500/15 via-rose-600/5 to-transparent",
-    glowColor: "group-hover:shadow-rose-500/20 group-hover:border-rose-500/50",
-    iconColor: "text-rose-400 group-hover:text-rose-300",
+    iconGlow: "bg-emerald-600/15 text-emerald-400 group-hover:bg-emerald-600/25",
+    iconColor: "text-emerald-400",
   },
   {
     id: "fantasy",
     name: "Fantasy",
     slug: "Fantasy",
-    tagline: "Step into limitless imagination.",
+    tagline: "Dream & explore",
     count: "320+ Books",
-    icon: Wand2,
-    gradient: "from-violet-500/15 via-violet-600/5 to-transparent",
-    glowColor: "group-hover:shadow-violet-500/20 group-hover:border-violet-500/50",
-    iconColor: "text-violet-400 group-hover:text-violet-300",
+    icon: Feather,
+    iconGlow: "bg-purple-500/15 text-purple-400 group-hover:bg-purple-500/25",
+    iconColor: "text-purple-400",
+  },
+  {
+    id: "kids",
+    name: "Kids & Youth",
+    slug: "Kids",
+    tagline: "Tales for young minds",
+    count: "180+ Books",
+    icon: Sparkles,
+    iconGlow: "bg-rose-500/15 text-rose-400 group-hover:bg-rose-500/25",
+    iconColor: "text-rose-400",
   },
   {
     id: "others",
-    name: "Others",
+    name: "Special Editions",
     slug: "Others",
-    tagline: "Diverse genres, essays & rarities.",
+    tagline: "Rare genres & arts",
     count: "140+ Books",
     icon: Layers,
-    gradient: "from-blue-500/15 via-blue-600/5 to-transparent",
-    glowColor: "group-hover:shadow-blue-500/20 group-hover:border-blue-500/50",
-    iconColor: "text-blue-400 group-hover:text-blue-300",
+    iconGlow: "bg-blue-500/15 text-blue-400 group-hover:bg-blue-500/25",
+    iconColor: "text-blue-400",
   },
 ];
 
 export function CategoriesSection() {
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-background via-emerald-950/20 to-background border-y border-emerald-900/20 transition-colors relative overflow-hidden">
-      {/* Subtle Ambient Background Glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-20 sm:py-28 bg-gradient-to-b from-background via-emerald-950/20 to-background border-y border-emerald-900/20 transition-colors relative overflow-hidden">
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -132,13 +122,13 @@ export function CategoriesSection() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-400 backdrop-blur-sm">
               <Compass className="h-3.5 w-3.5 text-emerald-400" />
-              <span>EXPLORE CATEGORIES</span>
+              <span>CATEGORIES</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-100">
               Browse by <span className="text-emerald-400 italic">Categories</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-400 max-w-xl">
-              Dive into your favorite genre and discover amazing books curated across all 8 disciplines.
+              Find your perfect book category across our curated shelves.
             </p>
           </div>
 
@@ -151,46 +141,48 @@ export function CategoriesSection() {
           </Link>
         </div>
 
-        {/* 8 Elegant Glassmorphic Cards (4 per row on Desktop: 2 rows of 4; 2 cols on mobile/tablet) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+        {/* 8 Hexagon-Themed Cards (4 per row on Desktop: 2 rows of 4; 2 cols on mobile/tablet) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={cat.id}
                 href={`/books?category=${encodeURIComponent(cat.slug)}`}
-                className={`group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b ${cat.gradient} bg-neutral-900/60 backdrop-blur-md border border-neutral-800/80 p-5 sm:p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${cat.glowColor}`}
+                className="group relative flex flex-col items-center justify-between text-center transition-all duration-300 hover:-translate-y-2"
               >
-                {/* Book Count Tag */}
-                <div className="flex justify-end mb-1">
-                  <span className="text-[10px] font-medium text-neutral-400 bg-neutral-950/60 px-2.5 py-0.5 rounded-full border border-neutral-800">
-                    {cat.count}
-                  </span>
-                </div>
+                {/* Hexagon (৬ কোণ বিশিষ্ট) শেপ উইথ স্মুথ কর্নার ও ব্যাকগ্রাউন্ড */}
+                <div 
+                  className="w-full relative flex flex-col items-center justify-between p-6 sm:p-7 bg-neutral-900/80 hover:bg-neutral-900/95 border border-emerald-500/25 hover:border-emerald-500/60 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20"
+                  style={{
+                    clipPath: "polygon(22% 0%, 78% 0%, 100% 50%, 78% 100%, 22% 100%, 0% 50%)",
+                    minHeight: "260px",
+                  }}
+                >
+                  {/* Subtle Inner Highlight */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 via-transparent to-black/40 pointer-events-none" />
 
-                {/* Real Vector Icon Container */}
-                <div className="my-3 sm:my-4 flex items-center justify-center">
-                  <div className="relative flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-neutral-950/80 border border-neutral-800/90 shadow-inner group-hover:scale-110 group-hover:border-emerald-500/40 transition-all duration-300">
-                    {/* Radial Glow behind icon */}
-                    <div className="absolute inset-0 rounded-2xl bg-emerald-500/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Icon className={`w-8 h-8 sm:w-9 sm:h-9 ${cat.iconColor} transition-colors relative z-10 stroke-[1.75]`} />
+                  {/* Icon Area with Soft Watercolor/Glow Aura matching 3rd design */}
+                  <div className="relative mt-2 flex items-center justify-center">
+                    <div className={`w-16 h-16 sm:w-18 sm:h-18 rounded-full ${cat.iconGlow} flex items-center justify-center backdrop-blur-md transition-transform duration-300 group-hover:scale-110 shadow-inner`}>
+                      <Icon className={`w-8 h-8 sm:w-9 sm:h-9 ${cat.iconColor} stroke-[1.8]`} />
+                    </div>
                   </div>
-                </div>
 
-                {/* Title & Tagline */}
-                <div className="space-y-1.5 mb-4">
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-100 group-hover:text-emerald-400 transition-colors">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed line-clamp-2">
-                    {cat.tagline}
-                  </p>
-                </div>
+                  {/* Category Details */}
+                  <div className="space-y-1 my-2 z-10">
+                    <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-100 group-hover:text-emerald-400 transition-colors">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-neutral-400 line-clamp-1 font-light">
+                      {cat.tagline}
+                    </p>
+                  </div>
 
-                {/* Round Arrow Button matching 2nd design */}
-                <div className="pt-2 flex justify-center">
-                  <div className="w-8 h-8 rounded-full bg-neutral-950/80 border border-neutral-800 flex items-center justify-center text-neutral-400 group-hover:bg-emerald-500 group-hover:text-neutral-950 group-hover:border-emerald-400 transition-all duration-300">
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  {/* Explore Link with Arrow matching 3rd design */}
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors z-10 mb-1">
+                    <span>Explore</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </Link>
