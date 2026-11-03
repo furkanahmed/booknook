@@ -24,7 +24,7 @@ interface AuthContextType {
   logout: () => void;
   borrowedBooks: string[]; // List of book IDs currently borrowed by active user
   userBorrows: BorrowRecord[]; // List of borrow records for active user
-  recordBorrow: (bookId: string, returnDate: string) => boolean;
+  recordBorrow: (bookId: string, returnDate: string, bookMeta?: { title?: string; image?: string; author?: string; category?: string }) => boolean;
   returnBook: (bookId: string) => boolean;
   hasBorrowed: (bookId: string) => boolean;
   getAvailableCopies: (bookId: string, defaultCopies: number) => number;
@@ -73,6 +73,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
+
+    // Also fetch live borrow records from MongoDB so all devices are synced
+    fetch("/api/borrows")
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.success && Array.isArray(res.data)) {
+          setAllBorrows(res.data);
+          try {
+            localStorage.setItem(BORROW_RECORDS_KEY, JSON.stringify(res.data));
+          } catch {}
+        }
+      })
+      .catch((e) => console.log("Borrow sync background check skipped:", e.message));
   }, []);
 
   const login = (newUser: AuthUser, token?: string) => {
@@ -98,7 +111,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const recordBorrow = (bookId: string, returnDate: string): boolean => {
+  const recordBorrow = (bookId: string, returnDate: string, bookMeta?: { title?: string; image?: string; author?: string; category?: string }): boolean => {
     if (!user) return false;
 
     // Check if already borrowed
@@ -121,6 +134,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error(e);
     }
+
+    // Persist globally to MongoDB database
+    fetch("/api/borrows", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        bookId,
+        userEmail: user.email,
+        userName: user.name,
+        returnDate,
+        bookTitle: bookMeta?.title,
+        bookImage: bookMeta?.image,
+        bookAuthor: bookMeta?.author,
+        bookCategory: bookMeta?.category,
+      }),
+    }).catch((err) => console.error("Global borrow persist error:", err));
+
     return true;
   };
 
@@ -137,6 +167,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error(e);
     }
+
+    // Persist global return to MongoDB database
+    fetch(`/api/borrows?bookId=${encodeURIComponent(bookId)}&userEmail=${encodeURIComponent(user.email)}`, {
+      method: "DELETE",
+    }).catch((err) => console.error("Global return persist error:", err));
+
     return true;
   };
 

@@ -102,7 +102,12 @@ export function BorrowSection({ book }: BorrowSectionProps) {
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 700));
 
-    const success = recordBorrow(book._id, formattedDate);
+    const success = recordBorrow(book._id, formattedDate, {
+      title: book.title,
+      image: book.image,
+      author: book.author,
+      category: book.category,
+    });
     setIsSubmitting(false);
 
     if (success) {
