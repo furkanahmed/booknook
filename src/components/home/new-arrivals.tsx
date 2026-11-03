@@ -5,14 +5,20 @@ import Link from "next/link";
 import { Book } from "@/types/book";
 import { BookCard } from "@/components/books/book-card";
 import { ArrowRight, Sparkles, Library } from "lucide-react";
-import { getLatestBooks } from "@/lib/books-service";
+import { getLatestBooks, fetchLiveBooks } from "@/lib/books-service";
 
 export function NewArrivalsSection() {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    // Load latest books dynamically, prioritizing newest added books at the top
-    setBooks(getLatestBooks(6));
+    // Load latest books dynamically from MongoDB API (works globally & incognito)
+    fetchLiveBooks(6).then((live) => {
+      if (live && live.length > 0) {
+        setBooks(live);
+      } else {
+        setBooks(getLatestBooks(6));
+      }
+    });
   }, []);
 
   return (

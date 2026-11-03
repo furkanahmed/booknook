@@ -4,7 +4,7 @@ import { initialBooksCatalog } from "@/data/initial-books";
 export const USER_ADDED_BOOKS_KEY = "booknook_user_added_books";
 
 /**
- * Returns all books: newly added user books first (sorted newest first), followed by initial books.
+ * Returns all books from local storage fallback
  */
 export function getAllBooks(): Book[] {
   if (typeof window === "undefined") {
@@ -15,7 +15,6 @@ export function getAllBooks(): Book[] {
     const stored = localStorage.getItem(USER_ADDED_BOOKS_KEY);
     const userBooks: Book[] = stored ? JSON.parse(stored) : [];
 
-    // Filter out any duplicates if an id clashes
     const userBookIds = new Set(userBooks.map((b) => b._id));
     const initialFiltered = initialBooksCatalog.filter((b) => !userBookIds.has(b._id));
 
@@ -27,7 +26,24 @@ export function getAllBooks(): Book[] {
 }
 
 /**
- * Returns latest N books for New Arrivals (newly added user books first)
+ * Fetch dynamic books directly from MongoDB API
+ */
+export async function fetchLiveBooks(limit?: number): Promise<Book[]> {
+  try {
+    const url = limit ? `/api/books?limit=${limit}` : `/api/books`;
+    const res = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    if (data.success && Array.isArray(data.data)) {
+      return data.data;
+    }
+  } catch (e) {
+    console.error("fetchLiveBooks failed, falling back to local:", e);
+  }
+  return limit ? getAllBooks().slice(0, limit) : getAllBooks();
+}
+
+/**
+ * Returns latest N books for New Arrivals
  */
 export function getLatestBooks(limit: number = 6): Book[] {
   const all = getAllBooks();
@@ -41,4 +57,3 @@ export function getBookById(id: string): Book | undefined {
   const all = getAllBooks();
   return all.find((b) => b._id === id);
 }
-

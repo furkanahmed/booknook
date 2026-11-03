@@ -133,13 +133,9 @@ export function AddBookClient() {
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    // Save to user's created books storage
+    // Save directly to MongoDB Database as well as local fallback
     try {
-      const stored = localStorage.getItem("booknook_user_added_books");
-      const list = stored ? JSON.parse(stored) : [];
-
-      const newBook = {
-        _id: "usr-book-" + Date.now(),
+      const bookPayload = {
         title: formData.title.trim(),
         author: formData.author.trim(),
         category: formData.category,
@@ -149,9 +145,24 @@ export function AddBookClient() {
         longDescription: formData.longDescription.trim() || formData.shortDescription.trim(),
         userName: user.name,
         userEmail: user.email,
-        createdAt: new Date().toISOString(),
       };
 
+      // 1. Save to MongoDB database via Next.js API
+      const res = await fetch("/api/books", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookPayload),
+      });
+      const data = await res.json();
+
+      // 2. Also keep local storage in sync
+      const stored = localStorage.getItem("booknook_user_added_books");
+      const list = stored ? JSON.parse(stored) : [];
+      const newBook = data.data || {
+        _id: "usr-book-" + Date.now(),
+        ...bookPayload,
+        createdAt: new Date().toISOString(),
+      };
       list.unshift(newBook);
       localStorage.setItem("booknook_user_added_books", JSON.stringify(list));
 

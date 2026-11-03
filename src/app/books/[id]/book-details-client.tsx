@@ -30,6 +30,14 @@ export function BookDetailsClient({ initialBook }: { initialBook?: Book | null }
       const found = getBookById(id);
       if (found) {
         setBook(found);
+      } else {
+        // Fetch from MongoDB
+        fetch(`/api/books`).then((r) => r.json()).then((d) => {
+          if (d.success && Array.isArray(d.data)) {
+            const match = d.data.find((b: any) => b._id === id);
+            if (match) setBook(match);
+          }
+        }).catch((err) => console.error("Error fetching book details:", err));
       }
     }
   }, [id, book]);

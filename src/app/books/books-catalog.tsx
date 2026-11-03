@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Book } from "@/types/book";
 import { BookCard } from "@/components/books/book-card";
-import { getAllBooks } from "@/lib/books-service";
+import { getAllBooks, fetchLiveBooks } from "@/lib/books-service";
 import { Search, Sparkles, BookOpen, Filter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -33,8 +33,14 @@ export function BooksCatalog() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Load all books, with newly added user books at the top
-    setBooks(getAllBooks());
+    // Load all books from MongoDB API (works globally across all browsers & incognito)
+    fetchLiveBooks().then((live) => {
+      if (live && live.length > 0) {
+        setBooks(live);
+      } else {
+        setBooks(getAllBooks());
+      }
+    });
   }, []);
 
   // Filter books dynamically based on category and search query
