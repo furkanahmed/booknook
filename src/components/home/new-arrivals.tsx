@@ -6,6 +6,7 @@ import { Book } from "@/types/book";
 import { BookCard } from "@/components/books/book-card";
 import { ArrowRight, Sparkles, Library } from "lucide-react";
 import { getLatestBooks, fetchLiveBooks } from "@/lib/books-service";
+import { AnimatedCard } from "@/components/ui/animated-section";
 
 export function NewArrivalsSection() {
   const [books, setBooks] = useState<Book[]>(() => getLatestBooks(6));
@@ -50,10 +51,10 @@ export function NewArrivalsSection() {
 
         {/* 6 Dynamic Books Grid (Uniform Dimensions & Equal Card Heights) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {books.map((book) => (
-            <div key={book._id} className="h-full">
+          {books.map((book, idx) => (
+            <AnimatedCard key={book._id} index={idx} className="h-full">
               <BookCard book={book} />
-            </div>
+            </AnimatedCard>
           ))}
         </div>
 
