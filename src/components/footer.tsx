@@ -66,17 +66,21 @@ export function Footer() {
               Contact Us
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary shrink-0" />
-                <span>Sanctuary Library Ave, Dhaka, Bangladesh</span>
+              <li className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <span>Habirbari, Bhaluka, Mymensingh -2240</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary shrink-0" />
-                <span>support@booknook.library</span>
+                <a href="mailto:dremoyit@gmail.com" className="hover:text-primary transition-colors">
+                  dremoyit@gmail.com
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary shrink-0" />
-                <span>+880 1700-000000</span>
+                <a href="tel:01622536026" className="hover:text-primary transition-colors">
+                  01622536026
+                </a>
               </li>
             </ul>
           </div>
@@ -92,7 +96,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               {/* Mandatory NEW X logo as per Assignment PDF Requirement #9 */}
               <a
-                href="https://x.com"
+                href="https://x.com/furkanahmedbd"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Follow us on X"
