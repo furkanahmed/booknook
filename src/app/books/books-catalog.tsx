@@ -33,8 +33,7 @@ export function BooksCatalog() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Instant fallback is already displayed above!
-    // Now silently revalidate & merge fresh MongoDB books in the background
+    // Silently revalidate live MongoDB books in background to keep data fresh
     fetchLiveBooks().then((live) => {
       if (live && live.length > 0) {
         setBooks(live);

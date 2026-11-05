@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { BooksCatalog } from "./books-catalog";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "All Books",
   description: "Browse and discover our full catalog of curated physical and digital library books.",
@@ -18,4 +20,3 @@ export default function AllBooksPage() {
     </div>
   );
 }
-
