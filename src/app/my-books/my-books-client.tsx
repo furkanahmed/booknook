@@ -56,22 +56,50 @@ export function MyBooksClient() {
     }
   }, [user, loading, router]);
 
-  // Load user's books from local storage
-  const loadUserBooks = () => {
+  // Load user's books from MongoDB with fallback to localStorage
+  const loadUserBooks = async () => {
     if (!user) return;
+
+    // First check localStorage for immediate render if available
+    let initialLocal: Book[] = [];
     try {
       const stored = localStorage.getItem(USER_BOOKS_KEY);
       if (stored) {
         const all: Book[] = JSON.parse(stored);
-        const filtered = all.filter(
+        initialLocal = all.filter(
           (b) => b.userEmail?.toLowerCase() === user.email.toLowerCase()
         );
-        setMyBooks(filtered);
-      } else {
-        setMyBooks([]);
+        if (initialLocal.length > 0) {
+          setMyBooks(initialLocal);
+        }
       }
     } catch (e) {
-      console.error(e);
+      console.error("Local storage read error:", e);
+    }
+
+    // Fetch live user books from MongoDB
+    try {
+      const res = await fetch(`/api/books?userEmail=${encodeURIComponent(user.email.toLowerCase())}`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          const apiBooks: Book[] = json.data;
+          
+          // Merge with any un-synced local books
+          const apiIds = new Set(apiBooks.map((b) => b._id));
+          const localOnly = initialLocal.filter((b) => !apiIds.has(b._id));
+          const combined = [...apiBooks, ...localOnly];
+          
+          setMyBooks(combined);
+          return;
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch user books from API:", err);
+    }
+
+    // Fallback if API fails and no books loaded
+    if (initialLocal.length === 0) {
       setMyBooks([]);
     }
   };
@@ -96,9 +124,28 @@ export function MyBooksClient() {
     }
 
     setIsSaving(true);
-    await new Promise((resolve) => setTimeout(resolve, 600));
 
     try {
+      // 1. Sync update to MongoDB API
+      try {
+        await fetch(`/api/books/${editModalBook._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: editModalBook.title,
+            author: editModalBook.author,
+            category: editModalBook.category,
+            image: editModalBook.image,
+            shortDescription: editModalBook.shortDescription,
+            longDescription: editModalBook.longDescription,
+            totalCopies: editModalBook.totalCopies,
+          }),
+        });
+      } catch (apiErr) {
+        console.error("API update failed, updating local copy:", apiErr);
+      }
+
+      // 2. Sync to localStorage
       const stored = localStorage.getItem(USER_BOOKS_KEY);
       const all: Book[] = stored ? JSON.parse(stored) : [];
       const index = all.findIndex((b) => b._id === editModalBook._id);
@@ -106,13 +153,21 @@ export function MyBooksClient() {
       if (index !== -1) {
         all[index] = { ...editModalBook };
         localStorage.setItem(USER_BOOKS_KEY, JSON.stringify(all));
-        loadUserBooks();
-        toast.success(`"${editModalBook.title}" updated successfully!`, {
-          duration: 4000,
-          icon: <CheckCircle className="w-5 h-5 text-emerald-400" />,
-        });
-        setEditModalBook(null);
+      } else {
+        all.push({ ...editModalBook });
+        localStorage.setItem(USER_BOOKS_KEY, JSON.stringify(all));
       }
+
+      // 3. Update state immediately
+      setMyBooks((prev) =>
+        prev.map((b) => (b._id === editModalBook._id ? { ...editModalBook } : b))
+      );
+
+      toast.success(`"${editModalBook.title}" updated successfully!`, {
+        duration: 4000,
+        icon: <CheckCircle className="w-5 h-5 text-emerald-400" />,
+      });
+      setEditModalBook(null);
     } catch (e) {
       console.error(e);
       toast.error("Failed to update book. Please try again.");
@@ -126,15 +181,25 @@ export function MyBooksClient() {
     if (!deleteModalBook || !user) return;
 
     setIsDeleting(true);
-    await new Promise((resolve) => setTimeout(resolve, 600));
 
     try {
+      // 1. Sync delete to MongoDB API
+      try {
+        await fetch(`/api/books/${deleteModalBook._id}`, {
+          method: "DELETE",
+        });
+      } catch (apiErr) {
+        console.error("API delete failed:", apiErr);
+      }
+
+      // 2. Remove from localStorage
       const stored = localStorage.getItem(USER_BOOKS_KEY);
       const all: Book[] = stored ? JSON.parse(stored) : [];
       const updated = all.filter((b) => b._id !== deleteModalBook._id);
-
       localStorage.setItem(USER_BOOKS_KEY, JSON.stringify(updated));
-      loadUserBooks();
+
+      // 3. Remove from UI state
+      setMyBooks((prev) => prev.filter((b) => b._id !== deleteModalBook._id));
 
       toast.success(`"${deleteModalBook.title}" removed from library inventory.`, {
         duration: 4000,
