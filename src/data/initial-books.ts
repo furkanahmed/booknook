@@ -1,25 +1,7 @@
 import { Book } from "@/types/book";
 
-// Clean initial books matching MongoDB seeds, including user's added book at top
+// Clean initial books matching default library catalog
 export const initialBooksCatalog: Book[] = [
-  {
-    _id: "6ae9de38e9fea33dc821376f",
-    title: "Recharge Your Down Battery",
-    author: "Jhankar Mahbub",
-    category: "Non-Fiction",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop",
-    shortDescription: "ঝংকার মাহবুবের লেখা অনন্য মোটিভেশনাল গাইডলাইন যা জীবনের ডাউন বা কম শক্তির সময়গুলোতে উদ্যম ফিরে পেতে সাহায্য করে।",
-    longDescription: "ঝংকার মাহবুবের লেখা Recharge Your Down Battery বইটি মূলত এমন সব তরুণ ও পেশাদারদের জন্য রচিত, যারা জীবন বা ক্যারিয়ারের কোনো না কোনো পর্যায়ে এসে হতাশ হয়ে পড়েছেন কিংবা কাজের স্পৃহা হারিয়ে ফেলেছেন।",
-    totalCopies: 4,
-    rating: 4.9,
-    publishedYear: 2024,
-    pages: 220,
-    isbn: "978-9849312345",
-    language: "Bengali",
-    userName: "Furkan Ahmed",
-    userEmail: "furkanbitm@gmail.com",
-    createdAt: "2026-11-03T13:14:32.244Z",
-  },
   {
     _id: "6ae791e3aaf0447e481a4810",
     title: "The Alchemist",
