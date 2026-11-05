@@ -23,6 +23,8 @@ import {
   User,
   CheckCircle,
   Library,
+  Upload,
+  Image as ImageIcon,
 } from "lucide-react";
 
 const CATEGORIES: BookCategory[] = [
@@ -44,9 +46,47 @@ export function MyBooksClient() {
 
   const [myBooks, setMyBooks] = useState<Book[]>([]);
   const [editModalBook, setEditModalBook] = useState<Book | null>(null);
+  const [editImageMode, setEditImageMode] = useState<"url" | "file">("file");
   const [deleteModalBook, setDeleteModalBook] = useState<Book | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Resize and compress image to keep under 100KB so it saves quickly without heavy payload
+  const handleEditFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !editModalBook) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload a valid image file (JPG, PNG, WebP).");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File size must be under 5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 500;
+        const scale = Math.min(1, MAX_WIDTH / img.width);
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.75);
+          setEditModalBook((prev) => (prev ? { ...prev, image: compressedDataUrl } : null));
+          toast.success("Image selected and optimized successfully!");
+        }
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
 
   // Protected route check
   useEffect(() => {
@@ -497,42 +537,111 @@ export function MyBooksClient() {
                 </div>
               </div>
 
-              {/* Copies & Image URL */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-xs font-medium text-neutral-300">
-                    Total Copies Available
+              {/* Total Copies */}
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-neutral-300">
+                  Total Copies Available
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  max={100}
+                  required
+                  value={editModalBook.totalCopies}
+                  onChange={(e) =>
+                    setEditModalBook({
+                      ...editModalBook,
+                      totalCopies: Math.max(1, parseInt(e.target.value) || 1),
+                    })
+                  }
+                  className="w-full rounded-xl bg-neutral-950 border border-neutral-800 px-3.5 py-2 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+
+              {/* Cover Image Upload / URL Selector */}
+              <div className="space-y-2 p-3.5 rounded-2xl bg-neutral-950/60 border border-neutral-800/80">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-neutral-200 flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                    Cover Image
                   </label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={100}
-                    required
-                    value={editModalBook.totalCopies}
-                    onChange={(e) =>
-                      setEditModalBook({
-                        ...editModalBook,
-                        totalCopies: Math.max(1, parseInt(e.target.value) || 1),
-                      })
-                    }
-                    className="w-full rounded-xl bg-neutral-950 border border-neutral-800 px-3.5 py-2 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500"
-                  />
+                  <div className="inline-flex p-0.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setEditImageMode("file")}
+                      className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                        editImageMode === "file"
+                          ? "bg-emerald-500 text-neutral-950 shadow-sm"
+                          : "text-neutral-400 hover:text-neutral-200"
+                      }`}
+                    >
+                      Upload File
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditImageMode("url")}
+                      className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                        editImageMode === "url"
+                          ? "bg-emerald-500 text-neutral-950 shadow-sm"
+                          : "text-neutral-400 hover:text-neutral-200"
+                      }`}
+                    >
+                      Image URL
+                    </button>
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-xs font-medium text-neutral-300">
-                    Cover Image URL
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={editModalBook.image}
-                    onChange={(e) =>
-                      setEditModalBook({ ...editModalBook, image: e.target.value })
-                    }
-                    className="w-full rounded-xl bg-neutral-950 border border-neutral-800 px-3.5 py-2 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
+                {editImageMode === "file" ? (
+                  <div className="space-y-2">
+                    <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-neutral-700 hover:border-emerald-500/80 rounded-xl cursor-pointer bg-neutral-900/40 hover:bg-neutral-900/80 transition-colors">
+                      <div className="flex flex-col items-center justify-center pt-2 pb-2">
+                        <Upload className="w-5 h-5 text-emerald-400 mb-1" />
+                        <p className="text-xs text-neutral-300 font-medium">
+                          Click to select a new cover photo
+                        </p>
+                        <p className="text-[10px] text-neutral-500">
+                          PNG, JPG, WebP (auto-optimized)
+                        </p>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="url"
+                      placeholder="https://images.unsplash.com/photo-..."
+                      value={editModalBook.image}
+                      onChange={(e) =>
+                        setEditModalBook({ ...editModalBook, image: e.target.value })
+                      }
+                      className="w-full rounded-xl bg-neutral-900 border border-neutral-800 px-3.5 py-2 text-sm text-neutral-100 placeholder:text-neutral-600 focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                )}
+
+                {/* Preview Thumbnail */}
+                {editModalBook.image && (
+                  <div className="flex items-center gap-3 pt-1 border-t border-neutral-800/60">
+                    <div className="relative w-12 aspect-[3/4] rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 shrink-0">
+                      <Image
+                        src={editModalBook.image}
+                        alt="Cover Preview"
+                        fill
+                        unoptimized
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="text-[11px] text-neutral-400 truncate">
+                      <span className="text-emerald-400 font-semibold">Active Preview:</span> Ready to save
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Short Description */}
